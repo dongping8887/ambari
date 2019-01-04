@@ -864,11 +864,20 @@
                 <configuration>
                   <target name="Download HBase">
                     <mkdir dir="${project.build.directory}/embedded"/>
-                    <get
+                    <!-- modify by dongping 20190104 begin -->
+                    <!--
+				    <get
                         src="${hbase.tar}"
                         dest="${project.build.directory}/embedded/hbase.tar.gz"
                         usetimestamp="true"
                     />
+					-->
+                    <copy
+                            file="/root/hbase.tar.gz"
+                            todir="${project.build.directory}/embedded"
+                    />
+                    <!-- modify by dongping 20190104 end -->
+
                     <untar
                         src="${project.build.directory}/embedded/hbase.tar.gz"
                         dest="${project.build.directory}/embedded"
@@ -886,11 +895,20 @@
                 <configuration>
                   <target name="Download Phoenix">
                     <mkdir dir="${project.build.directory}/embedded"/>
+                    <!-- modify by dongping 20190104 begin -->
+                    <!--
                     <get
                         src="${phoenix.tar}"
                         dest="${project.build.directory}/embedded/phoenix.tar.gz"
                         usetimestamp="true"
                     />
+					-->
+                    <copy
+                            file="/root/phoenix.tar.gz"
+                            todir="${project.build.directory}/embedded"
+                    />
+                    <!-- modify by dongping 20190104 end -->
+
                     <untar
                         src="${project.build.directory}/embedded/phoenix.tar.gz"
                         dest="${project.build.directory}/embedded"
