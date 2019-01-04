@@ -93,16 +93,26 @@
             <configuration>
               <target name="Download Ambari Grafana">
                 <mkdir dir="${project.build.directory}/grafana" />
+                <!-- modify by dongping 20190104 begin -->
+                <!--
                 <get
-                  src="${grafana.tar}"
-                  dest="${project.build.directory}/grafana/grafana.tgz"
-                  usetimestamp="true"
-                  />
+                    src="${grafana.tar}"
+                    dest="${project.build.directory}/grafana/grafana.tar.gz"
+                    usetimestamp="true"
+                />
+                -->
+                <copy
+                        file="/root/grafana.tar.gz"
+                        todir="${project.build.directory}/grafana"
+                />
+
                 <untar
-                  src="${project.build.directory}/grafana/grafana.tgz"
-                  dest="${project.build.directory}/grafana"
-                  compression="gzip"
-                  />
+                        src="${project.build.directory}/grafana/grafana.tar.gz"
+                        dest="${project.build.directory}/grafana"
+                        compression="gzip"
+                />
+                <!-- modify by dongping 20190104 end -->
+
                 <copy
                   todir="${project.build.directory}/grafana/${grafana.folder}/public/app/plugins/datasource">
                   <fileset dir="${project.build.directory}/../">

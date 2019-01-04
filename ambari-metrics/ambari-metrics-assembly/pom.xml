@@ -1150,11 +1150,20 @@
                 <configuration>
                   <target name="Downloading Hadoop">
                     <mkdir dir="${project.build.directory}/embedded" />
+                    <!-- modify by dongping 20190104 begin -->
+                    <!--
                     <get
-                      src="${hadoop.winpkg.zip}"
-                      dest="${project.build.directory}/embedded/hadoop.zip"
-                      usetimestamp="true"
-                      />
+                        src="${hadoop.tar}"
+                        dest="${project.build.directory}/embedded/hadoop.tar.gz"
+                        usetimestamp="true"
+                    />
+					-->
+                    <copy
+                            file="/root/hadoop.tar.gz"
+                            todir="${project.build.directory}/embedded"
+                    />
+                    <!-- modify by dongping 20190104 end -->
+
                     <unzip
                       src="${project.build.directory}/embedded/hadoop.zip"
                       dest="${project.build.directory}/embedded/hadoop.temp"
