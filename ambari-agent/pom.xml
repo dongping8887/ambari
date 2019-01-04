@@ -231,7 +231,9 @@
                 <argument>${target.cache.dir}</argument>
               </arguments>
               <environmentVariables>
-                <PYTHONPATH>target${dirsep}ambari-agent-${project.version}${pathsep}$PYTHONPATH</PYTHONPATH>
+                <!--delete by dongping 20190104 begin -->
+                <!--<PYTHONPATH>target${dirsep}ambari-agent-${project.version}${pathsep}$PYTHONPATH</PYTHONPATH>-->
+                <!--delete by dongping 20190104 end -->
               </environmentVariables>
             </configuration>
             <id>generate-hash-files</id>
