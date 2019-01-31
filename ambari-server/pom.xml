@@ -1028,6 +1028,15 @@
     </profile>
   </profiles>
   <dependencies>
+    <!--add by dongping 20190129 begin-->
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.36</version>
+    </dependency>
+    <!--add by dongping 20190129 end-->
+
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>ambari-views</artifactId>
