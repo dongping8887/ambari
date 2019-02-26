@@ -17,18 +17,11 @@
  */
 package org.apache.ambari.server.state.host;
 
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import com.google.inject.Inject;
+import com.google.inject.assistedinject.Assisted;
+import com.google.inject.persist.Transactional;
 import org.apache.ambari.server.AmbariException;
 import org.apache.ambari.server.HostNotFoundException;
 import org.apache.ambari.server.StackAccessException;
@@ -42,34 +35,10 @@ import org.apache.ambari.server.events.MaintenanceModeEvent;
 import org.apache.ambari.server.events.publishers.AmbariEventPublisher;
 import org.apache.ambari.server.orm.cache.HostConfigMapping;
 import org.apache.ambari.server.orm.cache.HostConfigMappingImpl;
-import org.apache.ambari.server.orm.dao.ClusterDAO;
-import org.apache.ambari.server.orm.dao.HostConfigMappingDAO;
-import org.apache.ambari.server.orm.dao.HostDAO;
-import org.apache.ambari.server.orm.dao.HostStateDAO;
-import org.apache.ambari.server.orm.dao.HostVersionDAO;
-import org.apache.ambari.server.orm.entities.ClusterEntity;
-import org.apache.ambari.server.orm.entities.HostComponentStateEntity;
-import org.apache.ambari.server.orm.entities.HostEntity;
-import org.apache.ambari.server.orm.entities.HostStateEntity;
-import org.apache.ambari.server.orm.entities.HostVersionEntity;
-import org.apache.ambari.server.orm.entities.RepositoryVersionEntity;
-import org.apache.ambari.server.orm.entities.ServiceComponentDesiredStateEntity;
-import org.apache.ambari.server.state.AgentVersion;
-import org.apache.ambari.server.state.Cluster;
-import org.apache.ambari.server.state.Clusters;
-import org.apache.ambari.server.state.ComponentInfo;
-import org.apache.ambari.server.state.Config;
-import org.apache.ambari.server.state.DesiredConfig;
-import org.apache.ambari.server.state.Host;
-import org.apache.ambari.server.state.HostConfig;
-import org.apache.ambari.server.state.HostEvent;
-import org.apache.ambari.server.state.HostEventType;
-import org.apache.ambari.server.state.HostHealthStatus;
+import org.apache.ambari.server.orm.dao.*;
+import org.apache.ambari.server.orm.entities.*;
+import org.apache.ambari.server.state.*;
 import org.apache.ambari.server.state.HostHealthStatus.HealthStatus;
-import org.apache.ambari.server.state.HostState;
-import org.apache.ambari.server.state.MaintenanceState;
-import org.apache.ambari.server.state.StackId;
-import org.apache.ambari.server.state.UpgradeState;
 import org.apache.ambari.server.state.configgroup.ConfigGroup;
 import org.apache.ambari.server.state.fsm.InvalidStateTransitionException;
 import org.apache.ambari.server.state.fsm.SingleArcTransition;
@@ -80,11 +49,17 @@ import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.google.inject.Inject;
-import com.google.inject.assistedinject.Assisted;
-import com.google.inject.persist.Transactional;
+import java.lang.reflect.Type;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 public class HostImpl implements Host {
 
@@ -201,7 +176,10 @@ public class HostImpl implements Host {
    // when a normal heartbeat is received
    .addTransition(HostState.WAITING_FOR_HOST_STATUS_UPDATES,
        HostState.WAITING_FOR_HOST_STATUS_UPDATES,
-       HostEventType.HOST_HEARTBEAT_HEALTHY)   // TODO: Heartbeat is ignored here
+       HostEventType.HOST_HEARTBEAT_HEALTHY,
+           //add by dongping 20180226 begin
+           new HostBecameHealthyTransition())   // TODO: Heartbeat is ignored here
+           //add by dongping 20180226 end
    // when a heartbeart denoting host as unhealthy is received
    .addTransition(HostState.WAITING_FOR_HOST_STATUS_UPDATES,
        HostState.WAITING_FOR_HOST_STATUS_UPDATES, // Still waiting for component status
