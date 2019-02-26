@@ -320,6 +320,9 @@ class Controller(threading.Thread):
           logger.log(logging_level, "Sending Heartbeat (id = %s)", self.responseId)
 
         response = self.sendRequest(self.heartbeatUrl, data)
+        #add by dongping 20190222 begin
+        logger.log(logging_level, "response: %s", str(response))
+        #add by dongping 20190222 end
 
         exitStatus = 0
         if 'exitstatus' in response.keys():
