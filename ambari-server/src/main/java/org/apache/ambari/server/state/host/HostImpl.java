@@ -780,9 +780,12 @@ public class HostImpl implements Host {
     if (hostStateEntity != null) {
       hostStateEntity.setHealthStatus(gson.toJson(healthStatus));
 
-      if (healthStatus.getHealthStatus().equals(HealthStatus.UNKNOWN)) {
-        setStatus(HealthStatus.UNKNOWN.name());
-      }
+      //modify by dongping 20190227 begin
+      //if (healthStatus.getHealthStatus().equals(HealthStatus.UNKNOWN)) {
+      // setStatus(HealthStatus.UNKNOWN.name());
+      setStatus(healthStatus.getHealthStatus().name());
+      //}
+      //modify by dongping 20190227 end
 
       hostStateDAO.merge(hostStateEntity);
     }
