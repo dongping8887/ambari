@@ -20,16 +20,5 @@
   <latest>http://s3.amazonaws.com/dev.hortonworks.com/HDP/hdp_urlinfo.json</latest>
   -->
   <mainrepoid>IOP-4.0</mainrepoid>
-  <os family="redhat6">
-    <repo>
-      <baseurl>http://ibm-open-platform.ibm.com/repos/IOP/RHEL6/x86_64/4.0</baseurl>
-      <repoid>IOP-4.0</repoid>
-      <reponame>IOP</reponame>
-    </repo>
-    <repo>
-      <baseurl>http://ibm-open-platform.ibm.com/repos/IOP-UTILS/RHEL6/x86_64/1.0</baseurl>
-      <repoid>IOP-UTILS-1.0</repoid>
-      <reponame>IOP-UTILS</reponame>
-    </repo>
-  </os>
+
 </reposinfo>

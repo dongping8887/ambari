@@ -17,35 +17,8 @@
 -->
 <reposinfo>
   <!-- <latest>http://public-repo-1.hortonworks.com/HDP/hdp_urlinfo.json</latest> -->
-  <latest>http://s3.amazonaws.com/dev.hortonworks.com/HDP/hdp_urlinfo.json</latest>
-  <os family="redhat6">
-    <repo>
-      <baseurl>REPLACE_WITH_CENTOS6_URL</baseurl>
-      <repoid>HDP-2.3</repoid>
-      <reponame>HDP</reponame>
-      <unique>true</unique>
-    </repo>
-    <repo>
-      <baseurl>http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos6</baseurl>
-      <repoid>HDP-UTILS-1.1.0.20</repoid>
-      <reponame>HDP-UTILS</reponame>
-      <unique>false</unique>
-    </repo>
-  </os>
-  <os family="redhat5">
-    <repo>
-      <baseurl>http://s3.amazonaws.com/dev.hortonworks.com/HDP/centos5/2.x/updates/2.3.0.0</baseurl>
-      <repoid>HDP-2.3</repoid>
-      <reponame>HDP</reponame>
-      <unique>true</unique>
-    </repo>
-    <repo>
-      <baseurl>http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/centos5</baseurl>
-      <repoid>HDP-UTILS-1.1.0.20</repoid>
-      <reponame>HDP-UTILS</reponame>
-      <unique>false</unique>
-    </repo>
-  </os>
+  <!--<latest>http://s3.amazonaws.com/dev.hortonworks.com/HDP/hdp_urlinfo.json</latest>-->
+
   <os family="suse11">
     <repo>
       <baseurl>http://s3.amazonaws.com/dev.hortonworks.com/HDP/suse11sp3/2.x/updates/2.3.0.0</baseurl>
@@ -60,32 +33,5 @@
       <unique>false</unique>
     </repo>
   </os>
-  <os family="ubuntu12">
-    <repo>
-      <baseurl>http://s3.amazonaws.com/dev.hortonworks.com/HDP/ubuntu12/2.x/updates/2.3.0.0</baseurl>
-      <repoid>HDP-2.3</repoid>
-      <reponame>HDP</reponame>
-      <unique>true</unique>
-    </repo>
-    <repo>
-      <baseurl>http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/ubuntu12</baseurl>
-      <repoid>HDP-UTILS-1.1.0.20</repoid>
-      <reponame>HDP-UTILS</reponame>
-      <unique>false</unique>
-    </repo>
-  </os>
-  <os family="ubuntu7">
-    <repo>
-      <baseurl>http://s3.amazonaws.com/dev.hortonworks.com/HDP/debian6/2.x/updates/2.3.0.0</baseurl>
-      <repoid>HDP-2.3</repoid>
-      <reponame>HDP</reponame>
-      <unique>true</unique>
-    </repo>
-    <repo>
-      <baseurl>http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.20/repos/debian6</baseurl>
-      <repoid>HDP-UTILS-1.1.0.20</repoid>
-      <reponame>HDP-UTILS</reponame>
-      <unique>false</unique>
-    </repo>
-  </os>
+
 </reposinfo>
