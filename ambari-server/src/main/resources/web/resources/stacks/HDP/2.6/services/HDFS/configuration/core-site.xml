@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+ -->
+<!-- Put site-specific property overrides in this file. -->
+<configuration xmlns:xi="http://www.w3.org/2001/XInclude" supports_final="true">
+    <property>
+        <name>hadoop.custom-extensions.root</name>
+        <value>/hdp/ext/{{major_stack_version}}/hadoop</value>
+        <description>
+            Root directory for hadoop extensions in HDFS
+        </description>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>fs.s3a.fast.upload</name>
+        <value>true</value>
+        <description>
+        </description>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>fs.s3a.fast.upload.buffer</name>
+        <value>disk</value>
+        <description>
+    The buffering mechanism to use.
+    Values: disk, array, bytebuffer.
+
+    "disk" will use the directories listed in fs.s3a.buffer.dir as
+    the location(s) to save data prior to being uploaded.
+
+    "array" uses arrays in the JVM heap
+
+    "bytebuffer" uses off-heap memory within the JVM.
+
+    Both "array" and "bytebuffer" will consume memory in a single stream up to the number
+    of blocks set by:
+
+        fs.s3a.multipart.size * fs.s3a.fast.upload.active.blocks.
+
+    If using either of these mechanisms, keep this value low
+
+    The total number of threads performing work across all threads is set by
+    fs.s3a.threads.max, with fs.s3a.max.total.tasks values setting the number of queued
+    work items.
+        </description>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>fs.s3a.multipart.size</name>
+        <value>67108864</value>
+        <description>
+    How big (in bytes) to split upload or copy operations up into.
+    A suffix from the set {K,M,G,T,P} may be used to scale the numeric value.
+        </description>
+        <on-ambari-upgrade add="false"/>
+    </property>    
+</configuration>
