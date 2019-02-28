@@ -437,7 +437,11 @@ public class StackInfo implements Comparable<StackInfo>, Validable{
   }
 
   public void setStackHooksFolder(String stackHooksFolder) {
-    this.stackHooksFolder = stackHooksFolder;
+    //modify by dongping 20190228 begin
+    if (stackHooksFolder!=null){
+      this.stackHooksFolder = stackHooksFolder.replace("\\","/");
+    }
+//    modify by dongping 20190228 end
   }
 
   /**

@@ -731,7 +731,11 @@ public String getVersion() {
   }
 
   public void setServicePackageFolder(String servicePackageFolder) {
-    this.servicePackageFolder = servicePackageFolder;
+    //modify by dongping 20190228 begin
+    if (servicePackageFolder!=null){
+      this.servicePackageFolder = servicePackageFolder.replace("\\","/");
+    }
+//    modify by dongping 20190228 end
   }
 
   public File getServiceUpgradesFolder() {
