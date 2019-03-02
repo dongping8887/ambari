@@ -44,30 +44,22 @@ component_directory = status_params.component_directory
 version = default("/commandParams/version", None)
 
 # default parameters
-zk_home = "/usr"
-zk_bin = "/usr/lib/zookeeper/bin"
-zk_cli_shell = "/usr/lib/zookeeper/bin/zkCli.sh"
-config_dir = "/etc/zookeeper/conf"
+zk_home = os.getenv('ZOOKEEPER_HOME')
+zk_bin = zk_home + "/bin"
+zk_cli_shell = zk_bin + "/zkCli.sh"
+config_dir = zk_home + "/conf"
 zk_smoke_out = os.path.join(tmp_dir, "zkSmoke.out")
 
-# hadoop parameters for stacks that support rolling_upgrade
-if stack_version_formatted and check_stack_feature(StackFeature.ROLLING_UPGRADE, stack_version_formatted):
-  zk_home = format("{stack_root}/current/{component_directory}")
-  zk_bin = format("{stack_root}/current/{component_directory}/bin")
-  zk_cli_shell = format("{stack_root}/current/{component_directory}/bin/zkCli.sh")
-  config_dir = status_params.config_dir
-
-
-zk_user = config['configurations']['zookeeper-env']['zk_user']
+zk_user = "hadoop"
 hostname = config['hostname']
-user_group = config['configurations']['cluster-env']['user_group']
+user_group = "hadoop"
 zk_env_sh_template = config['configurations']['zookeeper-env']['content']
 
 zk_log_dir = config['configurations']['zookeeper-env']['zk_log_dir']
 zk_data_dir = config['configurations']['zoo.cfg']['dataDir']
 zk_pid_dir = status_params.zk_pid_dir
 zk_pid_file = status_params.zk_pid_file
-zk_server_heapsize_value = str(default('configurations/zookeeper-env/zk_server_heapsize', "1024"))
+zk_server_heapsize_value = str(default('configurations/zookeeper-env/ZOOKEEPER_HEAPSIZE', "1024"))
 zk_server_heapsize_value = zk_server_heapsize_value.strip()
 if len(zk_server_heapsize_value) > 0 and zk_server_heapsize_value[-1].isdigit():
   zk_server_heapsize_value = zk_server_heapsize_value + "m"

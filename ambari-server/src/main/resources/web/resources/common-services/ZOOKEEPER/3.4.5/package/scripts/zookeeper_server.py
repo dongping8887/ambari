@@ -105,6 +105,7 @@ class ZookeeperServerLinux(ZookeeperServer):
   def status(self, env):
     import status_params
     env.set_params(status_params)
+    Logger.info(status_params.zk_pid_file)
     check_process_status(status_params.zk_pid_file)
       
   def get_log_folder(self):
