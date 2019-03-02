@@ -19,7 +19,7 @@
 <configuration>
   <property>
     <name>ssl.client.truststore.location</name>
-    <value>/etc/security/clientKeys/all.jks</value>
+    <value>/etc/security/https/truststore.jks</value>
     <description>Location of the trust store file.</description>
     <on-ambari-upgrade add="true"/>
   </property>
@@ -31,7 +31,7 @@
   </property>
   <property>
     <name>ssl.client.truststore.password</name>
-    <value>bigdata</value>
+    <value>hadoop</value>
     <property-type>PASSWORD</property-type>
     <description>Password to open the trust store file.</description>
     <value-attributes>
@@ -53,13 +53,13 @@
   </property>
   <property>
     <name>ssl.client.keystore.location</name>
-    <value>/etc/security/clientKeys/keystore.jks</value>
+    <value>/etc/security/https/keystore.jks</value>
     <description>Location of the keystore file.</description>
     <on-ambari-upgrade add="true"/>
   </property>
   <property>
     <name>ssl.client.keystore.password</name>
-    <value>bigdata</value>
+    <value>hadoop</value>
     <property-type>PASSWORD</property-type>
     <description>Password to open the keystore file.</description>
     <value-attributes>

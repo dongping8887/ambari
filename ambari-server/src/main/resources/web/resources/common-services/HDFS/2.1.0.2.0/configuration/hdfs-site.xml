@@ -22,7 +22,7 @@
   <property>
     <name>dfs.namenode.name.dir</name>
     <!-- cluster variant -->
-    <value>/hadoop/hdfs/namenode</value>
+    <value>file:/data/disk01/dfs/name</value>
     <display-name>NameNode directories</display-name>
     <description>Determines where on the local filesystem the DFS name node
       should store the name table.  If this is a comma-delimited list
@@ -76,7 +76,7 @@
   </property>
   <property>
     <name>dfs.datanode.data.dir</name>
-    <value>/hadoop/hdfs/data</value>
+    <value>file:/data/disk01/dfs/data</value>
     <display-name>DataNode directories</display-name>
     <description>Determines where on the local filesystem an DFS data node
       should store its blocks.  If this is a comma-delimited
@@ -117,7 +117,7 @@
   -->
   <property>
     <name>dfs.namenode.checkpoint.dir</name>
-    <value>/hadoop/hdfs/namesecondary</value>
+    <value>file://${hadoop.tmp.dir}/dfs/namesecondary</value>
     <display-name>SecondaryNameNode Checkpoint directories</display-name>
     <description>Determines where on the local filesystem the DFS secondary
       name node should store the temporary images to merge.
@@ -143,7 +143,7 @@
   </property>
   <property>
     <name>dfs.namenode.checkpoint.period</name>
-    <value>21600</value>
+    <value>3600</value>
     <display-name>HDFS Maximum Checkpoint Delay</display-name>
     <description>The number of seconds between two periodic checkpoints.</description>
     <value-attributes>
@@ -170,7 +170,7 @@
   </property>
   <property>
     <name>dfs.replication</name>
-    <value>3</value>
+    <value>2</value>
     <display-name>Block replication</display-name>
     <description>Default block replication.
     </description>
@@ -205,7 +205,7 @@
   </property>
   <property>
     <name>dfs.datanode.balance.bandwidthPerSec</name>
-    <value>6250000</value>
+    <value>1048576</value>
     <description>
       Specifies the maximum amount of bandwidth that each datanode
       can utilize for the balancing purpose in term of
@@ -215,7 +215,7 @@
   </property>
   <property>
     <name>dfs.https.port</name>
-    <value>50470</value>
+    <value>50070</value>
     <description>
       This property is used by HftpFileSystem.
     </description>
@@ -253,17 +253,30 @@
   </property>
   <property>
     <name>dfs.namenode.http-address</name>
-    <value>localhost:50070</value>
+    <value>0.0.0.0:50070</value>
     <description>The name of the default file system.  Either the
       literal string "local" or a host:port for HDFS.</description>
     <final>true</final>
     <on-ambari-upgrade add="false"/>
   </property>
   <property>
-    <name>dfs.namenode.rpc-address</name>
-    <value>localhost:8020</value>
-    <description>RPC address that handles all clients requests.</description>
-    <on-ambari-upgrade add="false"/>
+    <name>dfs.nameservices</name>
+    <value>dwhdp</value>
+  </property>
+
+  <property>
+    <name>dfs.ha.namenodes.dwhdp</name>
+    <value>nn1,nn2</value>
+  </property>
+
+  <property>
+    <name>dfs.namenode.rpc-address.dwhdp.nn1</name>
+    <value>hadoop01:9000</value>
+  </property>
+
+  <property>
+    <name>dfs.namenode.rpc-address.dwhdp.nn2</name>
+    <value>hadoop02:9000</value>
   </property>
   <property>
     <name>dfs.datanode.du.reserved</name>
@@ -286,7 +299,7 @@
   </property>
   <property>
     <name>dfs.datanode.ipc.address</name>
-    <value>0.0.0.0:8010</value>
+    <value>0.0.0.0:50020</value>
     <description>
       The datanode ipc server address and port.
       If the port is 0 then the server will start on a free port.
@@ -334,14 +347,14 @@
   </property>
   <property>
     <name>dfs.permissions.superusergroup</name>
-    <value>hdfs</value>
+    <value>hadoop</value>
     <property-type>GROUP</property-type>
     <description>The name of the group of super-users.</description>
     <on-ambari-upgrade add="true"/>
   </property>
   <property>
     <name>dfs.namenode.handler.count</name>
-    <value>100</value>
+    <value>60</value>
     <description>Added to grow Queue size so that more client connections are allowed</description>
     <display-name>NameNode Server threads</display-name>
     <value-attributes>
@@ -369,7 +382,7 @@
   </property>
   <property>
     <name>dfs.namenode.https-address</name>
-    <value>localhost:50470</value>
+    <value>0.0.0.0:50070</value>
     <description>The https address where namenode binds</description>
     <on-ambari-upgrade add="false"/>
   </property>
@@ -401,7 +414,7 @@
   </property>
   <property>
     <name>dfs.cluster.administrators</name>
-    <value> hdfs</value>
+    <value>hadoop</value>
     <description>ACL for the admins, this configuration is used to control who can access the default servlets in the namenode, etc. The value should be a comma separated list of users and groups. The user list comes first and is separated by a space followed by the group list, e.g. "user1,user2 group1,group2". Both users and groups are optional, so "user1", " group1", "", "user1 group1", "user1,user2 group1,group2" are all valid (note the leading space in " group1"). '*' grants access to all users and groups, e.g. '*', '* ' and ' *' are all valid.</description>
     <on-ambari-upgrade add="true"/>
   </property>
@@ -455,7 +468,7 @@
   </property>
   <property>
     <name>dfs.journalnode.edits.dir</name>
-    <value>/grid/0/hdfs/journal</value>
+    <value>/data/disk01/dwhdp/data/journal</value>
     <description>The path where the JournalNode daemon will store its local state. </description>
     <on-ambari-upgrade add="true"/>
   </property>
@@ -474,7 +487,7 @@
   </property>
   <property>
     <name>dfs.domain.socket.path</name>
-    <value>/var/lib/hadoop-hdfs/dn_socket</value>
+    <value>${hadoop.tmp.dir}/dn_socket</value>
     <description>
       This is a path to a UNIX domain socket that will be used for communication between the DataNode and local HDFS clients.
       If the string "_PORT" is present in this path, it will be replaced by the TCP port of the DataNode.
@@ -501,7 +514,7 @@
   </property>
   <property>
     <name>dfs.http.policy</name>
-    <value>HTTP_ONLY</value>
+    <value>HTTPS_ONLY</value>
     <description>
       Decide if HTTPS(SSL) is supported on HDFS This configures the HTTP endpoint for HDFS daemons:
       The following values are supported: - HTTP_ONLY : Service is provided only on http - HTTPS_ONLY :
