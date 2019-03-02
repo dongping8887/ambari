@@ -67,7 +67,7 @@
   </property>
   <property>
     <name>dataDir</name>
-    <value>/hadoop/zookeeper</value>
+    <value>/data/disk01/dwhdp/data/zookeeper</value>
     <display-name>ZooKeeper directory</display-name>
     <description>Data directory for ZooKeeper.</description>
     <value-attributes>
