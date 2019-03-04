@@ -18,11 +18,7 @@ package org.apache.ambari.server.orm;
  * limitations under the License.
  */
 
-import java.io.File;
-import java.util.Collections;
-import java.util.Properties;
-import java.util.Set;
-import java.util.concurrent.atomic.AtomicReference;
+import com.google.inject.AbstractModule;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 import com.google.inject.util.Modules;
 import org.apache.ambari.server.audit.AuditLogger;
@@ -34,7 +30,10 @@ import org.apache.ambari.server.stack.StackManagerMock;
 import org.easymock.EasyMock;
 import org.springframework.beans.factory.config.BeanDefinition;
 
-import com.google.inject.AbstractModule;
+import java.util.Collections;
+import java.util.Properties;
+import java.util.Set;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class InMemoryDefaultTestModule extends AbstractModule {
 
@@ -93,7 +92,9 @@ public class InMemoryDefaultTestModule extends AbstractModule {
     String resourcesDir = "src/test/resources/";
     if (System.getProperty("os.name").contains("Windows")) {
       stacks = ClassLoader.getSystemClassLoader().getResource("stacks").getPath();
-      version = new File(new File(ClassLoader.getSystemClassLoader().getResource("").getPath()).getParent(), "version").getPath();
+      //modify by dongping 20190304 begin
+      version = ClassLoader.getSystemClassLoader().getResource("version").getPath();
+      //modify by dongping 20190304 begin
       sharedResourcesDir = ClassLoader.getSystemClassLoader().getResource("").getPath();
     }
 
