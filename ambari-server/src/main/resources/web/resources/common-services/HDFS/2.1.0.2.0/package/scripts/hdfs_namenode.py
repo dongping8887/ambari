@@ -18,6 +18,7 @@ limitations under the License.
 """
 import os.path
 import time
+import socket
 
 from ambari_commons import constants
 
@@ -176,8 +177,13 @@ def namenode(action=None, hdfs_binary=None, do_format=True, upgrade_type=None,
     )
 
     if params.security_enabled:
-      Execute(format("{kinit_path_local} -kt {hdfs_user_keytab} {hdfs_principal_name}"),
-              user = params.hdfs_user)
+      #modify by dongping 20190305 begin
+      command = format("{kinit_path_local} -kt {hdfs_user_keytab} {hdfs_principal_name}")
+      host = socket.gethostname()
+      command = command.replace("_HOST", host)
+      Logger.info("command: {0}".format(command))
+      Execute(command, user = params.hdfs_user)
+      #modify by dongping 20190305 end
 
     # ___Scenario___________|_Expected safemode state__|_Wait for safemode OFF____|
     # no-HA                 | ON -> OFF                | Yes                      |
