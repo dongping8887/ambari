@@ -320,9 +320,6 @@ class Controller(threading.Thread):
           logger.log(logging_level, "Sending Heartbeat (id = %s)", self.responseId)
 
         response = self.sendRequest(self.heartbeatUrl, data)
-        #add by dongping 20190222 begin
-        logger.log(logging_level, "response: %s", str(response))
-        #add by dongping 20190222 end
 
         exitStatus = 0
         if 'exitstatus' in response.keys():
@@ -546,6 +543,11 @@ class Controller(threading.Thread):
       req = urllib2.Request(url, data, {'Content-Type': 'application/json',
                                         'Accept-encoding': 'gzip'})
       response = self.cachedconnect.request(req)
+      #modify by dongping 20190306 begin
+      host = socket.gethostname()
+      response = str(response).replace("_HOST", host)
+      logger.info("response: %s", str(response))
+      #modify by dongping 20190306 end
       return json.loads(response)
     except Exception, exception:
       if response is None:

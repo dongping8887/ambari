@@ -35,7 +35,9 @@ class Logger:
   sensitive_strings = {}
   
   @staticmethod
-  def initialize_logger(name='resource_management', logging_level=logging.INFO, format='%(asctime)s - %(message)s'):
+  #modify by dongping 20190306 begin
+  def initialize_logger(name='resource_management', logging_level=logging.INFO, format='%(asctime)s %(filename)s:%(lineno)d - %(message)s'):
+  #modify by dongping 20190306 end
     if Logger.logger:
       return
     # set up logging (two separate loggers for stderr and stdout with different loglevels)
