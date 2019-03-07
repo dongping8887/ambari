@@ -633,7 +633,9 @@ class HdfsResourceProvider(Provider):
     principal_name = self.resource.principal_name
     user = self.resource.user
     
-    Execute(format("{kinit_path} -kt {keytab_file} {principal_name}"),
-            user=user
-    )    
+    #modify by dongping 20190307 begin
+    #Execute(format("{kinit_path} -kt {keytab_file} {principal_name}"),
+    #user=user)
+    pass
+    #modify by dongping 20190307 end
 

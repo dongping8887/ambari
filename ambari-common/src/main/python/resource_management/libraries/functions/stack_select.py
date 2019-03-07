@@ -369,26 +369,13 @@ def get_hadoop_dir(target):
   if not target in HADOOP_DIR_DEFAULTS:
     raise Fail("Target {0} not defined".format(target))
 
-  hadoop_dir = HADOOP_DIR_DEFAULTS[target]
-
-  formatted_stack_version = format_stack_version(stack_version)
-
-  if stack_features.check_stack_feature(StackFeature.ROLLING_UPGRADE, formatted_stack_version):
-    # read the desired version from the component map and use that for building the hadoop home
-    version = component_version.get_component_repository_version()
-    if version is None:
-      version = default("/commandParams/version", None)
-
-    # home uses a different template
-    if target == "home":
-      hadoop_dir = HADOOP_HOME_DIR_TEMPLATE.format(stack_root, version, "hadoop")
-      if version is None or sudo.path_isdir(hadoop_dir) is False:
-        hadoop_dir = HADOOP_HOME_DIR_TEMPLATE.format(stack_root, "current", "hadoop-client")
-    else:
-      hadoop_dir = HADOOP_DIR_TEMPLATE.format(stack_root, version, "hadoop", target)
-      if version is None or sudo.path_isdir(hadoop_dir) is False:
-        hadoop_dir = HADOOP_DIR_TEMPLATE.format(stack_root, "current", "hadoop-client", target)
-
+  #modify by dongping 20190307 begin
+  hadoop_home = os.getenv('HADOOP_HOME')
+  if target == "home":
+    hadoop_dir = hadoop_home
+  else:
+    hadoop_dir = hadoop_home + "/" + target
+  #modify by dongping 20190307 end
   return hadoop_dir
 
 
@@ -400,15 +387,9 @@ def get_hadoop_dir_for_stack_version(target, stack_version):
   :stack_version: stack version to get hadoop dir for
   """
 
-  stack_root = Script.get_stack_root()
-  if not target in HADOOP_DIR_DEFAULTS:
-    raise Fail("Target {0} not defined".format(target))
-
-  # home uses a different template
-  if target == "home":
-    hadoop_dir = HADOOP_HOME_DIR_TEMPLATE.format(stack_root, stack_version, "hadoop")
-  else:
-    hadoop_dir = HADOOP_DIR_TEMPLATE.format(stack_root, stack_version, "hadoop", target)
+  #modify by dongping 20190307 begin
+  hadoop_dir = get_hadoop_dir(target)
+  #modify by dongping 20190307 end
 
   return hadoop_dir
 
