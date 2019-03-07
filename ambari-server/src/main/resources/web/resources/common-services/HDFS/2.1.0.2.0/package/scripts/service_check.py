@@ -38,9 +38,11 @@ class HdfsServiceCheckDefault(HdfsServiceCheck):
     tmp_file = format("{dir}/{unique}")
 
     if params.security_enabled:
-      Execute(format("{kinit_path_local} -kt {hdfs_user_keytab} {hdfs_principal_name}"),
-        user=params.hdfs_user
-      )
+      #modify by dongping 20190307 begin
+      #Execute(format("{kinit_path_local} -kt {hdfs_user_keytab} {hdfs_principal_name}"),
+      #        user = params.hdfs_user)
+      pass
+      #modify by dongping 20190307 end
     params.HdfsResource(dir,
                         type="directory",
                         action="create_on_execute",

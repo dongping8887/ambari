@@ -41,7 +41,10 @@ def post_upgrade_check():
   if params.security_enabled:
     # We establish HDFS identity instead of JN Kerberos identity
     # since this is an administrative HDFS call that requires the HDFS administrator user to perform.
-    Execute(params.hdfs_kinit_cmd, user=params.hdfs_user)
+    #modify by dongping 20190307 begin
+    #Execute(params.hdfs_kinit_cmd, user=params.hdfs_user)
+    pass
+    #modify by dongping 20190307 end
 
   time.sleep(5)
   hdfs_roll_edits()

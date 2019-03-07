@@ -544,8 +544,8 @@ class Controller(threading.Thread):
                                         'Accept-encoding': 'gzip'})
       response = self.cachedconnect.request(req)
       #modify by dongping 20190306 begin
-      host = socket.gethostname()
-      response = str(response).replace("_HOST", host)
+      #host = socket.gethostname()
+      #response = str(response).replace("_HOST", host)
       logger.info("response: %s", str(response))
       #modify by dongping 20190306 end
       return json.loads(response)

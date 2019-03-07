@@ -228,7 +228,10 @@ class NameNodeDefault(NameNode):
       klist_cmd = format("{klist_path_local} -s {ccache_file_path}")
       kinit_cmd = format("{kinit_path_local} -c {ccache_file_path} -kt {hdfs_user_keytab} {hdfs_principal_name}")
       if shell.call(klist_cmd, user=params.hdfs_user)[0] != 0:
-        Execute(kinit_cmd, user=params.hdfs_user)
+        #modify by dongping 20190307 begin
+        #Execute(kinit_cmd, user=params.hdfs_user)
+        pass
+        #modify by dongping 20190307 end
 
     def calculateCompletePercent(first, current):
       # avoid division by zero

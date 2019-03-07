@@ -42,7 +42,10 @@ def pre_rolling_upgrade_shutdown(hdfs_binary):
 
   Logger.info('DataNode executing "shutdownDatanode" command in preparation for upgrade...')
   if params.security_enabled:
-    Execute(params.dn_kinit_cmd, user = params.hdfs_user)
+    #modify by dongping 20190307 begin
+    #Execute(params.dn_kinit_cmd, user = params.hdfs_user)
+    pass
+    #modify by dongping 20190307 end
 
   dfsadmin_base_command = get_dfsadmin_base_command(hdfs_binary)
   command = format('{dfsadmin_base_command} -shutdownDatanode {dfs_dn_ipc_address} upgrade')
@@ -67,7 +70,10 @@ def post_upgrade_check(hdfs_binary):
 
   Logger.info("Checking that the DataNode has rejoined the cluster after upgrade...")
   if params.security_enabled:
-    Execute(params.dn_kinit_cmd, user=params.hdfs_user)
+    #modify by dongping 20190307 begin
+    #Execute(params.dn_kinit_cmd, user = params.hdfs_user)
+    pass
+    #modify by dongping 20190307 end
 
   # verify that the datanode has started and rejoined the HDFS cluster
   _check_datanode_startup(hdfs_binary)

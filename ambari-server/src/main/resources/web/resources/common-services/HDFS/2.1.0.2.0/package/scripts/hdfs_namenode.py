@@ -177,13 +177,11 @@ def namenode(action=None, hdfs_binary=None, do_format=True, upgrade_type=None,
     )
 
     if params.security_enabled:
-      #modify by dongping 20190305 begin
-      command = format("{kinit_path_local} -kt {hdfs_user_keytab} {hdfs_principal_name}")
-      host = socket.gethostname()
-      command = command.replace("_HOST", host)
-      Logger.info("command: {0}".format(command))
-      Execute(command, user = params.hdfs_user)
-      #modify by dongping 20190305 end
+      #modify by dongping 20190307 begin
+      #Execute(format("{kinit_path_local} -kt {hdfs_user_keytab} {hdfs_principal_name}"),
+      #        user = params.hdfs_user)
+      pass
+      #modify by dongping 20190307 end
 
     # ___Scenario___________|_Expected safemode state__|_Wait for safemode OFF____|
     # no-HA                 | ON -> OFF                | Yes                      |
@@ -459,8 +457,11 @@ def decommission():
 
   if not params.update_files_only:
     Execute(nn_kinit_cmd,
-            user=hdfs_user
-    )
+            user=hdfs_user)
+    #modify by dongping 20190307 begin
+    #Execute(nn_kinit_cmd, #user=hdfs_user)
+    pass
+    #modify by dongping 20190307 end
 
     if params.dfs_ha_enabled:
       # due to a bug in hdfs, refreshNodes will not run on both namenodes so we
