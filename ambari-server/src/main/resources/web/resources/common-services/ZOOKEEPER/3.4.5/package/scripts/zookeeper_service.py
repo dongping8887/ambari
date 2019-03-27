@@ -45,11 +45,9 @@ def zookeeper_service(action='start', upgrade_type=None):
       raise
 
     if params.security_enabled:
-      kinit_cmd = format("{kinit_path_local} -kt {smoke_user_keytab} {smokeuser_principal};")
-
-      Execute(kinit_cmd,
-              user=params.smokeuser
-      )
+      #modify by dongping 20190327 begin
+      pass
+      #modify by dongping 20190327 end
 
   elif action == 'stop':
     daemon_cmd = format("source {config_dir}/zookeeper-env.sh ; {cmd} stop")

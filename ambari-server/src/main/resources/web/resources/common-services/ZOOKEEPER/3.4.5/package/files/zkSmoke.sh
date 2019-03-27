@@ -36,8 +36,9 @@ zkhosts=` grep "^\s*server\.[[:digit:]]"  $conf_dir/zoo.cfg  | cut -f 2 -d '=' |
 zk_node1=`echo $zkhosts | tr ' ' '\n' | head -n 1`  
 echo "zk_node1=$zk_node1"
 if [[ $security_enabled == "True" ]]; then
-  kinitcmd="$kinit_path_local -kt $smoke_user_keytab $smokeuser_principal"
-  /var/lib/ambari-agent/ambari-sudo.sh su $smoke_user -s /bin/bash - -c "$kinitcmd"
+  #modify by dongping 20190327 begin
+  pass
+  #modify by dongping 20190327 end
 fi
 
 function verify_output() {
