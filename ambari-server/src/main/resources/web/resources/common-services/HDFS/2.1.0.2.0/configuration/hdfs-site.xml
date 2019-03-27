@@ -90,9 +90,10 @@
     </value-attributes>
     <on-ambari-upgrade add="true"/>
   </property>
+
   <property>
     <name>dfs.hosts.exclude</name>
-    <value>/etc/hadoop/conf/dfs.exclude</value>
+    <value>${hadoop.conf.dir}/dfs.exclude</value>
     <description>Names a file that contains a list of hosts that are
       not permitted to connect to the namenode.  The full pathname of the
       file must be specified.  If the value is empty, no hosts are

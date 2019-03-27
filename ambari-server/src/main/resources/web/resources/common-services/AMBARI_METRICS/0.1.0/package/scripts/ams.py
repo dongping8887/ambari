@@ -448,6 +448,9 @@ def ams(name=None, action=None):
 
 def export_ca_certs(dir_path):
   # export ca certificates on every restart to handle changed truststore content
+  #add by dongping 20190307 begin
+  return
+  #add by dongping 20190307 end
 
   import params
   import tempfile

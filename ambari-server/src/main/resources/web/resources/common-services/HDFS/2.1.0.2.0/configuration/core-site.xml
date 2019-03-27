@@ -195,4 +195,8 @@ DEFAULT
     <value>User-Agent: APN/1.0 Hortonworks/1.0 HDP/{{version}}</value>
     <on-ambari-upgrade add="false" />
   </property>
+  <property>
+    <name>hadoop.conf.dir</name>
+    <value>/home/hadoop/dwhdp/core/hadoop/etc/hadoop</value>
+  </property>
 </configuration>
