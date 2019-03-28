@@ -63,8 +63,9 @@ def wait_for_safemode_off(hdfs_binary, afterwait_sleep=0, execute_kinit=False):
   Logger.info("Waiting up to {0} minutes for the NameNode to leave Safemode...".format(sleep_minutes))
 
   if params.security_enabled and execute_kinit:
-    kinit_command = format("{params.kinit_path_local} -kt {params.hdfs_user_keytab} {params.hdfs_principal_name}")
-    Execute(kinit_command, user=params.hdfs_user, logoutput=True)
+    #modify by dongping 20190327 begin
+    pass
+    #modify by dongping 20190327 end
 
   try:
     # Note, this fails if namenode_address isn't prefixed with "params."
@@ -456,8 +457,6 @@ def decommission():
     pass
 
   if not params.update_files_only:
-    Execute(nn_kinit_cmd,
-            user=hdfs_user)
     #modify by dongping 20190307 begin
     #Execute(nn_kinit_cmd, #user=hdfs_user)
     pass

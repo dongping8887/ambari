@@ -152,8 +152,9 @@ class NameNodeDefault(NameNode):
     Logger.info("Preparing the NameNodes for a NonRolling (aka Express) Upgrade.")
 
     if params.security_enabled:
-      kinit_command = format("{params.kinit_path_local} -kt {params.hdfs_user_keytab} {params.hdfs_principal_name}")
-      Execute(kinit_command, user=params.hdfs_user, logoutput=True)
+      #modify by dongping 20190327 begin
+      pass
+      #modify by dongping 20190327 end
 
     hdfs_binary = self.get_hdfs_binary()
     namenode_upgrade.prepare_upgrade_check_for_previous_dir()
